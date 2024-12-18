@@ -15,10 +15,23 @@ document.getElementById('upload-form').addEventListener('submit', function (even
     const podcastFile = document.getElementById('podcast-file').files[0];
     const podcastTitle = document.getElementById('podcast-title').value;
     const message = document.getElementById('message');
+    const progressBar = document.getElementById('progress-bar');
+    const progressContainer = document.getElementById('progress-container');
 
     if (password === 'Carronshore93') {
         if (podcastFile && podcastTitle) {
             const reader = new FileReader();
+
+            // Show the progress bar
+            progressContainer.classList.remove('hidden');
+
+            reader.onprogress = function (event) {
+                if (event.lengthComputable) {
+                    const percentLoaded = Math.round((event.loaded / event.total) * 100);
+                    progressBar.style.width = percentLoaded + '%';
+                    progressBar.textContent = percentLoaded + '%';
+                }
+            };
 
             reader.onload = function () {
                 const podcastUrl = reader.result;
@@ -32,9 +45,20 @@ document.getElementById('upload-form').addEventListener('submit', function (even
                 // Add to DOM
                 addPodcastToDOM(podcastTitle, podcastUrl, podcastType);
 
+                // Reset progress bar and message
+                progressBar.style.width = '0%';
+                progressBar.textContent = '';
+                progressContainer.classList.add('hidden');
                 message.textContent = 'Podcast uploaded successfully!';
                 message.style.color = 'green';
                 message.classList.remove('hidden');
+            };
+
+            reader.onerror = function () {
+                message.textContent = 'Error uploading the file.';
+                message.style.color = 'red';
+                message.classList.remove('hidden');
+                progressContainer.classList.add('hidden');
             };
 
             reader.readAsDataURL(podcastFile);
