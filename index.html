@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gimble Podcast</title>
+    <!-- Link to CSS -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
@@ -16,19 +17,27 @@
         <section id="podcasts">
             <h2>Latest Episodes</h2>
             <div id="podcast-list">
-                <!-- Podcast episodes will be listed here -->
+                <!-- Uploaded podcasts will appear here -->
             </div>
         </section>
         <section id="upload">
             <h2>Upload a Podcast</h2>
             <form id="upload-form">
+                <label for="podcast-title">Podcast Title:</label>
+                <input type="text" id="podcast-title" placeholder="Enter podcast title" required>
+                
                 <label for="password">Enter Password:</label>
                 <input type="password" id="password" placeholder="Enter Password" required>
-                <label for="podcast-title">Podcast Title:</label>
-                <input type="text" id="podcast-title" placeholder="Enter Podcast Title" required>
-                <label for="podcast-file">Select Podcast File:</label>
-                <input type="file" id="podcast-file" accept="audio/*" required>
+                
+                <label for="podcast-file">Select Podcast (Audio or Video):</label>
+                <input type="file" id="podcast-file" accept="audio/*,video/*" required>
+                
                 <button type="submit">Upload</button>
+
+                <!-- Progress bar -->
+                <section id="progress-container" class="hidden">
+                    <div id="progress-bar">0%</div>
+                </section>
             </form>
             <p id="message" class="hidden"></p>
         </section>
@@ -36,6 +45,7 @@
     <footer class="footer">
         <p>© 2024 Gimble Podcast. All rights reserved.</p>
     </footer>
-    <script src="script.js"></script>
+    <!-- Link to JavaScript -->
+    <script src="script.js" defer></script>
 </body>
 </html>
